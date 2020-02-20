@@ -37,13 +37,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Birthday Cake Candles", "Bi
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Time Conversion", "Time Conversion\Time Conversion.pyproj", "{D650F0D2-9167-4CA8-A868-C12D1D4326B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grading Students", "Grading Students\Grading Students.csproj", "{C493FBC3-3FBD-489B-999F-8CF3227262D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grading Students", "Grading Students\Grading Students.csproj", "{C493FBC3-3FBD-489B-999F-8CF3227262D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple and Orange", "Apple and Orange\Apple and Orange.csproj", "{DD1C6D37-3670-4387-A5DC-8B43BD955E07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apple and Orange", "Apple and Orange\Apple and Orange.csproj", "{DD1C6D37-3670-4387-A5DC-8B43BD955E07}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Study", "Study", "{D110BF10-6B19-4408-A683-38F004D9AB3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kangaroo", "Kangaroo\Kangaroo.csproj", "{7A99D205-839C-4138-B435-C55D78230500}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kangaroo", "Kangaroo\Kangaroo.csproj", "{7A99D205-839C-4138-B435-C55D78230500}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Between Two Sets", "Between Two Sets\Between Two Sets.pyproj", "{E1D3ED1B-DF13-4450-BE0A-F7564B853477}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlgorithmStudy", "AlgorithmStudy\AlgorithmStudy.vcxproj", "{002DA476-65C5-44D2-9129-BDAFC5000FC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -221,6 +225,22 @@ Global
 		{7A99D205-839C-4138-B435-C55D78230500}.Release|x64.Build.0 = Release|Any CPU
 		{7A99D205-839C-4138-B435-C55D78230500}.Release|x86.ActiveCfg = Release|Any CPU
 		{7A99D205-839C-4138-B435-C55D78230500}.Release|x86.Build.0 = Release|Any CPU
+		{E1D3ED1B-DF13-4450-BE0A-F7564B853477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D3ED1B-DF13-4450-BE0A-F7564B853477}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E1D3ED1B-DF13-4450-BE0A-F7564B853477}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E1D3ED1B-DF13-4450-BE0A-F7564B853477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D3ED1B-DF13-4450-BE0A-F7564B853477}.Release|x64.ActiveCfg = Release|Any CPU
+		{E1D3ED1B-DF13-4450-BE0A-F7564B853477}.Release|x86.ActiveCfg = Release|Any CPU
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Debug|x64.ActiveCfg = Debug|x64
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Debug|x64.Build.0 = Debug|x64
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Debug|x86.ActiveCfg = Debug|Win32
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Debug|x86.Build.0 = Debug|Win32
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Release|Any CPU.ActiveCfg = Release|Win32
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Release|x64.ActiveCfg = Release|x64
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Release|x64.Build.0 = Release|x64
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Release|x86.ActiveCfg = Release|Win32
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +263,8 @@ Global
 		{C493FBC3-3FBD-489B-999F-8CF3227262D8} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
 		{DD1C6D37-3670-4387-A5DC-8B43BD955E07} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
 		{7A99D205-839C-4138-B435-C55D78230500} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
+		{E1D3ED1B-DF13-4450-BE0A-F7564B853477} = {025568C8-703C-4402-B5CC-3998B3D236D6}
+		{002DA476-65C5-44D2-9129-BDAFC5000FC6} = {D110BF10-6B19-4408-A683-38F004D9AB3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50855108-F57E-4F5B-8306-2B3CCAF6E097}

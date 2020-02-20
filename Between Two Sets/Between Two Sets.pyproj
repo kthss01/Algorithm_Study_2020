@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>c8032cb2-0e1d-4eaf-9896-450f1a4d3a55</ProjectGuid>
+    <ProjectGuid>e1d3ed1b-df13-4450-be0a-f7564b853477</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>입력받기.py</StartupFile>
+    <StartupFile>Between_Two_Sets.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PythonStudy</Name>
-    <RootNamespace>PythonStudy</RootNamespace>
+    <Name>Between Two Sets</Name>
+    <RootNamespace>Between Two Sets</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,16 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="기초.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="내장함수.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="문자열.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="입력받기.py" />
+    <Compile Include="Between_Two_Sets.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
