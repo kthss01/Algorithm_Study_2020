@@ -8,7 +8,12 @@ namespace C____Study
         {
             // format 출력
             int a = 10;
+
             Console.WriteLine("a = {0}", a);
+
+            // Format() 메소드
+            int num = 999;
+            string str1 = string.Format("Example2 : {0}, {1}, {2}", "BlockDMask", 3434, num);
 
             // 소수점 자리수 
             /*
@@ -92,6 +97,19 @@ namespace C____Study
                 Console.Write("[{0}] ", arr[i]);
             Console.WriteLine();
         } 
+
+        public void Foreach()
+        {
+            // foreach 활용
+            int[] arr = new int[] { 11, 12, 13, 14, 15, 16, 17 };
+
+            int index = 0;
+            foreach(int elem in arr)
+            {
+                Console.WriteLine("arr[{0}] = {1}", index, elem);
+                index++;
+            }
+        }
     }
 
     class Program
@@ -107,7 +125,10 @@ namespace C____Study
             //study.Input();
 
             // 여러 수 입력받기 예제
-            study.MultiInput();
+            //study.MultiInput();
+
+            // foreach 예제
+            study.Foreach();
         }
     }
 }
