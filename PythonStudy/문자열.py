@@ -17,3 +17,6 @@ e = int(a[:2]) # hour
 number = 10
 day = "three"
 "I ate {0} apples. so I was sick for {1} days.".format(number, day)
+
+# 문자열 삽입(join)
+",".join('abcd') # 'a,b,c,d' 튜플 리스트에도 사용 가능
