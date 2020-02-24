@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace C____Study
 {
@@ -248,8 +249,13 @@ namespace C____Study
         }
     }
 
+    class Practice
+    {
+        public virtual void Example() { }
+    }
+
     // C# Yield
-    class YieldPractice
+    class Yield : Practice
     {
         /*
          * C#의 yield 키워드는 호출자(Caller)에게 컬렉션 데이타를 하나씩 리턴할 때 사용한다. 
@@ -285,12 +291,14 @@ namespace C____Study
             yield return 30; // 세번째 루프에서 리턴되는 값
         }
 
-        public void Print()
+        public override void Example()
         {
             foreach (int num in GetNumber())
             {
                 Console.WriteLine(num);
             }
+
+            Enumerator();
         }
 
         /*
@@ -332,50 +340,691 @@ namespace C____Study
     }
 
     // C# delegate
-    // 좀더 공부 다시 정리
-    class DelegatePractice
+    delegate int MyDelegate(int a, int b);
+    delegate void MyDelegate2();
+    delegate void MyDelegate3(int a);
+    delegate void MyDelegate4(int a, int b);
+    class Delegate : Practice
     {
         /*
-         * C# delegate는 C/C++의 함수 포인터와 비슷한 개념으로 매서드 파라미터와 리턴 타입에 대한
-         * 정의를 한 후, 동일한 파라미터와 리턴 타입을 가진 메서드를 서로 호환해서 
-         * 불러 쓸 수 있는 기능이다.
+         * 메소드를 참조하는 변수 (메소드를 대신해서 호출)
          */
-
-        // 1. delegate 선언
-        private delegate void RunDelegate(int i);
-
-        private void RunThis(int val)
+        public override void Example()
         {
-            // 콘솔출력 : 1024
-            Console.WriteLine("{0}", val);
+            Basic();
+            CallBackMethod();
+            DelegateChain();
+            Event();
         }
 
-        private void RunThat(int value)
+        public static void Calculator(int a, int b, MyDelegate dele)
         {
-            // 콘솔출력 : 0x400
-            Console.WriteLine("0x{0:X}", value);
+            Console.WriteLine(dele(a, b));
+        }
+        public static int Plus(int a, int b) { return a + b; }
+        public static int Minus(int a, int b) { return a - b; }
+        public static int Multiply(int a, int b) { return a * b; }
+
+        void Basic()
+        {
+            MyDelegate calculate;
+
+            calculate = new MyDelegate(Plus);
+            int sum = calculate(11, 22);
+            Console.WriteLine("11 + 22 = {0}", sum);
+
+            calculate = new MyDelegate(Minus);
+            Console.WriteLine("22 - 11 = {0}", calculate(22, 11));
         }
 
-        public void Perform()
+        // 콜백메서드
+        /*
+         * 델리게이트는 콜백메서드를 구현할 때 나타남
+         * 콜백(Callback)이란 A라는 메서드를 호출할 때에 B라는 메서드를 넘겨주어
+         * A 메서드로 하여금 B 메서드를 호출하도록 하는 것을 말하며
+         * 이때의 A 메서드를 콜백메서드라 한다.
+         * 
+         * 이 과정에서 델리게이트는 B메서드를 참조하는 변수로써 A메서드에게 넘겨지는
+         * 매개변수가 되고, A메서드는 매개변수로 받은 델리게이트로 B메서드를 호출한다.
+         */
+        void CallBackMethod()
         {
-            // 2. delegate 인스턴스 생성
-            RunDelegate run = new RunDelegate(RunThis);
-            // 3. delegate 실행
-            run(1024);
+            MyDelegate plus = new MyDelegate(Plus);
+            MyDelegate minus = new MyDelegate(Minus);
+            MyDelegate multiply = new MyDelegate(Multiply);
 
-            // run = new RunDelegate(RunThat); 을 줄여서
-            // 아래와 같이 쓸 수 있다.
-            run = RunThat;
+            Calculator(11, 22, plus);
+            Calculator(33, 22, minus);
+            Calculator(11, 22, multiply);
+        }
 
-            run(1024);
+        public static void func0() { Console.Write("1번째 "); }
+        public static void func1() { Console.Write("2번째 "); }
+        public static void func2() { Console.Write("3번째 "); }
+
+        // 델리게이트 체인
+        /*
+         * 델리게이트는 여러개의 메소드를 참조할 수 있음
+         * +, +=로 새로운 메소드를 추가만 해주면 됨
+         * 
+         * MyDelegate del;
+         * 
+         * del = new MyDelegate(func0);
+         * del += func1;
+         * del += func2;
+         * 
+         * 이제 델리게이트를 호출하면, 참조된 메소드들을 차례대로 호출하게 됨
+         * 이렇게 하나의 델리게이트에 여러개의 메소드를 연결시키는 것을 델리게이트 체인이라 한다.
+         * 그리고 델리게이트에 연결된 메소드를 끊기 원한다면 반대로 -= 해주면 됨
+         */
+         void DelegateChain()
+        {
+            MyDelegate2 dele;
+            dele = new MyDelegate2(func0);
+            dele += func1;
+            dele += func2;
+
+            dele();
+            Console.WriteLine();
+
+            dele -= func0;
+            dele -= func2;
+
+            dele();
+            Console.WriteLine();
+        }
+
+        /*
+         * 이벤트
+         * 델리게이트 타입을 선언하면 델리게이트 변수도 생성할 수 있지만,
+         * 이벤트 변수도 생성할 수 있다. 이벤트 변수는 간단히 event 한정자만 붙여줌녀 된다.
+         * 
+         * event MyDelegate B;
+         * 
+         * 이벤트 변수는 델리게이트 변수와 마찬가지로 메소드를 참조하는데,
+         * 간단히 말해 델리게이트 변수가 public이라면 이벤트 변수는 private 같은 느낌이랄까
+         * 델리게이트 변수는 자신이 속한 클래스 외부에서도 호출이 가능하지만,
+         * 이벤트 변수는 외부에서 호출이 불가능하다.
+         */
+        class EventManager
+        {
+            public event MyDelegate3 eventCall;
+            public void NumberCheck(int num)
+            {
+                if (num % 2 == 0)
+                    eventCall(num);
+            }
+        }
+        static void EvenNumber(int num)
+        {
+            Console.WriteLine("{0}는 짝수", num);
+        }
+        void Event()
+        {
+            EventManager eventManager = new EventManager();
+            eventManager.eventCall += new MyDelegate3(EvenNumber);
+
+            for (int i = 1; i < 10; i++)
+                eventManager.NumberCheck(i);
         }
     }
 
-    /*
-     * 공부해야할 거
-     * 인터페이스 linq delegate 무명메서드 등
-     * http://www.csharpstudy.com/CSharp/CSharp-delegate.aspx 참고해서 추후 하자
-     */
+    // C# Collection
+    class Collection : Practice
+    {
+        /*
+         * 컬렉션(Collection)은 데이터 모음(자료구조)
+         */
+
+        public override void Example()
+        {
+            /*
+             *  Collection은 어떤 타입의 데이터든지 담을 수 있는 대신
+             *  object 형식으로 박싱(Boxing) 언박싱(Unboxing)하기 때문에 성능 문제가 있음
+             *  따라서 일반화 컬렉션을 사용함
+             *  
+             *  List<T>
+             *  Stack<T>
+             *  Queue<T>
+             *  Dictionary<T>
+             */
+
+            // ArrayList
+            ArrayList list = new ArrayList();
+
+            list.Add(10); list.Add(20); list.Add(30); // 10,20,30
+            list.RemoveAt(1); // list.Remove(20)과 같은 결과
+
+            list.Insert(1, 2.3f); // 10, 2.3, 30
+            list.Add("ABC"); // 10, 2.3, 30, ABC
+            list.Add("가나다"); // 10, 2.3, 30, ABC, 가나다
+
+            // 컬렉션의 모든 요소는 object 타입으로 저장됨
+            foreach (object obj in list)
+                Console.WriteLine("{0}", obj);
+            Console.WriteLine();
+
+            // Queue
+            Queue que = new Queue();
+            que.Enqueue(10);
+            que.Enqueue(20);
+            que.Enqueue(30);
+            que.Dequeue();
+            que.Enqueue(4.4);
+            que.Dequeue();
+            que.Enqueue("ABC");
+
+            while (que.Count > 0)
+                Console.WriteLine(que.Dequeue());
+            Console.WriteLine();
+
+            // Stack
+            Stack stack = new Stack();
+
+            stack.Push(10);
+            stack.Push(20);
+            stack.Push(30);
+            stack.Pop();
+            stack.Pop();
+            stack.Push(4.4);
+            stack.Push("ABC");
+
+            while (stack.Count > 0)
+                Console.WriteLine(stack.Pop());
+            Console.WriteLine();
+
+            // Hashtable
+            // Key Value을 가진 데이터를 저장하는 자료구조
+            Hashtable ht = new Hashtable();
+            ht["Apple"] = "사과";
+            ht["Banana"] = "바나나";
+            ht["Orange"] = "오렌지";
+
+            Console.WriteLine(ht["Apple"]);
+            Console.WriteLine(ht["Banana"]);
+            Console.WriteLine(ht["Orange"]);
+        }
+    }
+
+    // Anonymous
+    class Anonymous : Practice
+    {
+
+        public override void Example()
+        {
+            AnonymousType();
+            AnonymousMethod();
+        }
+        
+        /*
+         * 무명 형식 (Anonymous Type)
+         * C#에는 이름이 없는 형식(타입)이 존재
+         * 무명형식이라고 하며 임시 변수가 필요할 때 아주 유용
+         * 
+         * var temp = new {Age = 11, Name = "십일"};
+         * Console.WriteLine("{0},{1}", temp.Age, temp.Name};
+         * 
+         * 무명형식은 반드시 선언과 함께 new 키워드로 인스턴스를 생성해주어야 하며,
+         * 생성된 인스턴스는 읽기전용이기 때문에 값 변경이 불가능하다.
+         * 
+         */
+        void AnonymousType()
+        {
+            var temp = new { Age = 11, Name = "십일" };
+            Console.WriteLine("Age:{0}, Name:{1}", temp.Age, temp.Name);
+
+            var tempArr = new
+            {
+                Int = new int[] { 11, 22, 33, 44, 55 },
+                Float = new float[] { 0.1f, 0.2f, 0.3f }
+            };
+
+            foreach (var element in tempArr.Int)
+                Console.Write("{0} ", element);
+            Console.WriteLine();
+
+            foreach (var element in tempArr.Float)
+                Console.Write("{0} ", element);
+            Console.WriteLine();
+        }
+
+        /*
+         * 무명 메소드 (Anonymous Method)
+         * 
+         * C# 이름이 없는 무명 메소드 제공
+         * (델리게이트와 함께 사용됨)
+         * 
+         * 무명 메소드는 이름이 없기 때문에 메소드를 호출하기 위해 델리게이트 변수 필요
+         * 즉, 델리게이트 변수를 선언하고, 그 변수로 무명 메소드를 참조하게됨
+         * (델리게이트와 무명메소드는 당연히 같은 형식이어야 한다.)
+         */
+        void AnonymousMethod()
+        {
+            // 델리게이트 변수 선언
+            MyDelegate add;
+
+            // 무명 메소드 참조
+            add = delegate (int a, int b)
+            {
+                return a + b;
+            };
+
+            Console.WriteLine(add(11, 22));
+        }
+    }
+
+    // Lamda Expression
+    class LamdaExpression : Practice
+    {
+        /*
+         * 무명 메소드를 단순한 계산식으로 표현한 것
+         * 메소드는 크게 매개변수와 내부 식, 반환값으로 구성되어 있는데,
+         * 이들만 가지고 메소드를 계산식으로 표현
+         * 
+         * MyDelegate A
+         *
+         * 무명 메소드
+         * A = delegate(int a, int b) {return a + b;};
+         * 
+         * 람다식
+         * A = (int a, int b) => a+b;
+         * 동일한 람다식
+         * A = (a,b) => a+b;
+         * 람다식은 매개변수로 전해지는 a,b의 타입까지도 생략이 가능하다.
+         */
+
+        public override void Example()
+        {
+            Basic();
+            Expression();
+        }
+
+        public void Basic()
+        {
+            MyDelegate add = (a, b) => a + b;
+            MyDelegate2 lamda = () => Console.WriteLine("람다식");
+
+            Console.WriteLine("11 + 22 = {0}", add(11, 22));
+
+            lamda();
+        }
+
+        /*
+         * 문 형식의 람다식
+         * 람다식 내에서 메소드처럼 다양한 처리도 가능하다
+         * 그냥 메소드처럼 중괄호 내에 작성하면 된다
+         * 
+         * delegate void MyDelegate(int a, int b);
+         * 
+         * MyDelegate A = (a, b) =>
+         * {
+         *     if(a > b)
+         *          Console.WriteLine("{0}가 크다", a);
+         *     else if(a < b)
+         *          Console.WriteLine("{0}가 크다", b);
+         *     else
+         *          Console.WriteLine("{0}, {1}는 같다", a,b);
+         * };
+         */
+         public void Expression()
+        {
+            MyDelegate4 Compare = (a, b) =>
+            {
+                if (a > b)
+                    Console.WriteLine("{0}보다 {1}가 크다", b, a);
+                else if (a < b)
+                    Console.WriteLine("{0}보다 {1}가 크다", a, b);
+                else
+                    Console.WriteLine("{0}, {1}는 같다", a, b);
+            };
+
+            Compare(11, 22);
+        }
+    }
+
+    // Func & Action 델리게이트
+    class FuncAction : Practice
+    {
+        /*
+         * 무명 메소르를 사용하기 위해서는 이를 참조할 수 있는 델리게이트 변수가 있어야 하며,
+         * 또한 델리게이트 변수를 생성하기에 앞서 델리게이트 타입을 선언해야 한다.
+         * 그러면 각기 다른 타입의 무명 메소드를 여러개 만들때는 어떻게 해야할까?
+         * 당연히 무명 메소드마다 그 타입에 맞는 델리게이트 타입과 변수를 따로 따로 선언해야 할 것이다.
+         * 이는 매우 비효율적인 작업이기 때문에 C#에서는 Func와 Action이라는 델리게이트를 제공한다.
+         * 
+         * Func와 Action은 미리 선언된 델리게이트 변수로써 별도의 선언없이 사용 가능하다.
+         * Func는 반환값이 있는 메소드를 참조하는 델리게이트 변수이고
+         * Action은 반환값이 없는 메소드를 참조하는 델리게이트 변수이다.
+         */
+
+        public override void Example()
+        {
+            Func();
+            Action();
+        }
+
+        static float temp(int a, int b, int c) { return (a + b + c) * 0.1f; }
+        void Func()
+        {
+            // 매개변수는 없고, 반환값은 float형
+            Func<float> func0 = () => 0.1f; // 0.1를 반환
+            // int형 매개변수를 1개 가지고 반환값은 float형
+            Func<int,float> func1 = (a) => a * 0.1f;
+            // int형 매개변수를 2개 가지고 반환값은 float형
+            Func<int, int, float> func2 = (a, b) => (a + b) * 0.1f;
+            // int형 매개변수를 3개 가지고 반환값은 float형
+            Func<int, int, int, float> func3;
+
+            func3 = new Func<int, int, int, float>(temp); // 일반 메서드 참조
+
+            Console.WriteLine("func0 반환값: {0}", func0());
+            Console.WriteLine("func1 반환값: {0}", func1(10));
+            Console.WriteLine("func2 반환값: {0}", func2(10,10));
+            Console.WriteLine("func3 반환값: {0}", func3(10,10,10));
+        }
+
+        static void temp2 (string name) { Console.WriteLine("name: {0}", name); }
+        void Action()
+        {
+            int sum = 0;
+
+            Action act0 = () => Console.WriteLine("name: 엑트0");
+            Action<string> act1 = new Action<string>(temp2);
+            Action<string, string> act2 = (name, age) =>
+             {
+                 Console.Write("name: {0}", name);
+                 Console.Write("age: {0}", age);
+             };
+            Action<int, int, int> act3 = (a, b, c) => sum = a + b + c;
+
+            act0();
+            act1("엑트1");
+            act2("엑트2", "22");
+            act3(100, 20, 3);
+
+            Console.WriteLine("sum: {0}", sum);
+        }
+    }
+
+    // LINQ
+    class Linq : Practice
+    {
+        /*
+         * LINQ(링크) Languate Integrated Query의 약어로,
+         * 직역하면 '질의로 통합된 언어' 이다.
+         * '데이터에 대해 질문하는 언어'라고 볼 수 있따.
+         * LINQ의 역할은 데이터에 대해 질문하고, 그 답에 해당하는 데이터를 찾는 것이다.
+         * 이러한 LINQ의 질의 기능은 프로그램에서 데이터 검색을 편리하게 해준다.
+         * 
+         * 예를 들어 결혼정보업체에서 한국의 모든 사람에 대한 데이터를 가지고 있는데,
+         * 그 중에 여자이면서 20세 이상 성인들의 데이터를 어린 나이순으로 찾는다고 치자.
+         * 그럼 데이터를 하나하나 검색하면서 이런 질문을 던질 수 있을 것이다.
+         * 
+         *  첫번째. 여자인가?
+         *  두번째. (검색된 여자 중에서) 20세가 넘는 성인인가?
+         *  세번째. (검색된 성인 여자 중에서) 나이가 어린가?
+         *  
+         *  위의 질문들을 LINQ 쿼리식으로 작성하면 다음과 같다.
+         *  var woman =
+         *      from woman in womanList // womanList에서 (여자인가?)
+         *      where woman.age > 20 // 20세가 넘는 성인을 (성인인가?)
+         *      orderby woman.age // 나이 순으로 정렬하여 (나이가 어린가?)
+         *      select woman; // 배열 데이터로 추출
+         *      
+         *  LINQ없이 단순 코드로 작성하면 다음과 같다.
+         *  
+         *  List<Woman> Women = new List<Woman>;
+         *  
+         *  foreach(Womane woman in womanList)
+         *      if(woman.age > 20)
+         *          Women.add(woman);
+         *          
+         *  Women.Sort((w1,w2) => w1.age - w2.age;);
+         *  
+         *  foreach(var worman in Women)
+         *      Console.WriteLine("{0}, {1}", woman.name, woman.age);
+         *      
+         * from
+         * 데이터를 검색하기 위해서는 우선적으로 데이터를 검색할 범위를 지정해 주어야한다.
+         * 그 역할을 해주는 것이 from 절이다.
+         * 모든 LINQ 쿼리식(Query Expression)은 반드시 from으로 시작해야 한다
+         * 
+         * from 절의 작성 형식은 foreach문과 거의 비슷하다.
+         *  ex) foreach(var element in array) == from element in array
+         *  
+         *  foreach문과 from 절의 element 변수의 차이점
+         *   foreach의 element 변수에는 실제로 array의 데이터가 저장된다
+         *   하지만 LINQ에서는 element 변수에는 데이터가 저장되지 않고,
+         *   단순히 'array에 존재하는 요소'라는 의미로만 사용된다
+         *   
+         *  from에서 사용가능한 타입은 IEnumerable<T> 인터페이스를 상속하는타입이다
+         *  C#에서의 배열이나 컬렉션등은 모두 IEnumerable<T>를 상속하기 때문에
+         *  배열이나 컬렉션 타입이라면 전부 사용가능하다.
+         *  
+         *  where
+         *  범위 내에서 데이터를 걸러내는 역할
+         *  
+         *  orderby
+         *  정렬해주는 연산자
+         *  기본값으로 오름차순 정렬 사용
+         *  ascending
+         *  descending (내림차순)
+         *      ex)
+         *          orderby woman.age ascending
+         *          orderby woman.age descending
+         *          
+         *  select
+         *  최종적으로 검색된 데이터를 추출하는 역할
+         *  추출된 데이터의 타입은 select 절에 지정한 변수의 타입으로 결정되며,
+         *  무명형식(타입)으로 만들어서 추출할 수도 있다.
+         *  
+         *  select new {
+         *      title = "성인여자", name = worman.name};
+         */
+
+        public override void Example()
+        {
+            Basic();
+            Advance();
+        }
+
+        class Woman
+        {
+            public string name { get; set; }
+            public int age { get; set; }
+        }
+        void Basic()
+        {
+            Woman[] womanList =
+            {
+                new Woman() {name = "아라", age=24},
+                new Woman() {name = "민희", age=20},
+                new Woman() {name = "현아", age=32},
+                new Woman() {name = "수지", age=20},
+            };
+
+            var Women = from woman in womanList
+                        where woman.age > 20
+                        orderby woman.age ascending
+                        select new
+                        {
+                            title = "성인 여자",
+                            name = woman.name
+                        };
+
+            foreach (var woman in Women)
+                Console.WriteLine("{0}: {1}", woman.title, woman.name);
+        }
+
+        void Advance()
+        {
+            Fromfrom();
+            GroupBy();
+            Join();
+        }
+        class Student
+        {
+            public string name { get; set; }
+            public int[] score { get; set; }
+        }
+        void Fromfrom()
+        {
+            /*
+             * 여러개의 데이터 범위 지정하기
+             * 만약에 지정한 데이터 범위 내에서 한번 더 데이터 범위를 지정하려면 
+             * from절을 중첩해서 사용하면 된다.
+             */
+            Student[] studentList =
+            {
+                new Student() {name = "아라", score = new int[] {88,73,66,91}},
+                new Student() {name = "민희", score = new int[] {78,95,89,52}},
+                new Student() {name = "현자", score = new int[] {88,71,100,91}}
+            };
+
+            var Students = from student in studentList
+                           from score in student.score
+                           where score > 89
+                           select new { Name = student.name, Score = score };
+
+            foreach (var student in Students)
+                Console.WriteLine("참잘했어요: {0} {1}점", student.Name, student.Score);
+        }
+        class Person
+        {
+            public string sex { get; set; }
+            public string name { get; set; }
+        }
+        void GroupBy()
+        {
+            // group by로 데이터 분류하기
+            /*
+             * 배열을 특정 기준에 따라 두 그룹으로 나누고 싶을 때
+             * group ~ by ~ into 이다.
+             * 
+             * group A by B into C : A를 B 기준에 따라 분류하여 C로 저장한다.
+             *  (C 안에는 기준에 따라 두 개의 그룹으로 나눠서 저장된다.)
+             */
+            Person[] peopleList =
+           {
+                new Person() { sex="여자", name="아라" },
+                new Person() { sex="남자", name="쓰레기" },
+                new Person() { sex="여자", name="민희" },
+                new Person() { sex="남자", name="삼천포" }
+            };
+
+            var Group = from person in peopleList
+                        group person by person.sex == "남자" into data
+                        select new { bMale = data.Key, People = data };
+
+            foreach (var group in Group)
+            {
+                if (group.bMale)
+                {
+                    Console.WriteLine("<남자 리스트>");
+                    foreach (var person in group.People)
+                        Console.WriteLine("이름: {0}", person.name);
+                }
+                else
+                {
+                    Console.WriteLine("<여자 리스트>");
+                    foreach (var person in group.People)
+                        Console.WriteLine("이름: {0}", person.name);
+                }
+            }
+        }
+
+        class Profile
+        {
+            public string name { get; set; }
+            public int age { get; set; }
+        }
+        class Score
+        {
+            public string name { get; set; }
+            public int math { get; set; }
+            public int english { get; set; }
+        }
+        void Join()
+        {
+            /*
+            * join - 두 데이터 합치기
+            * 
+            * 서로 다른 두 개의 데이터가 있는데, 두 개의 데이터가 서로 통합될 수 있는
+            * 유사성을 가진다면 하나의 데이터로 통합하여 처리하는 것이 효율적이다.
+            * LINQ는 이를 위해 데이터를 통합하는 기능을 제공하는데, 그 기능을 하는 키워드가
+            * join이다.
+            * join은 LINQ 쿼리식에서 서로 다른 두 데이터를 합치는 기능을 수행한다.
+            * join에는 내부 조인과 외부 조인이 있다.
+            */
+
+            /*
+            * (1) 내부조인
+            *  내부 조인은 두 데이터를 비교해서 특정 조건이 일치하는 경우에만 추출하여 통합
+            *      from a in A
+            *      join b in B on a.XXX equals b.YYY
+            *      // a.XXX와 b.YYY가 일치하는 a, b 데이터만 추출
+            */
+
+            Profile[] profileList =
+            {
+                new Profile() {name = "수지", age = 11 },
+                new Profile() {name = "아라", age = 22 },
+                new Profile() {name = "민희", age = 33 }
+            };
+
+            Score[] scoreList =
+            {
+                new Score() {name = "아라", math = 99, english = 66 },
+                new Score() {name = "민희", math = 77, english = 88 },
+                new Score() {name = "현아", math = 66, english = 99 },
+            };
+
+            var Students = from profile in profileList
+                           join score in scoreList on profile.name equals score.name
+                           select new
+                           {
+                               Name = profile.name,
+                               Age = profile.age,
+                               Math = score.math,
+                               English = score.english
+                           };
+
+            foreach (var student in Students)
+                Console.WriteLine(student);
+
+            Console.WriteLine();
+
+            /*
+             * (2) 외부 조인
+             * 
+             * 기본적으로 내부 조인과 비슷하다.
+             * 다만 조건이 일치하지 않더라도, 기준데이터를 하나도 누락시키지 않고
+             * 그대로 추출한 후에, 빈 데이터를 채워서 통합한다.
+             *      from a in A
+             *      join b in B on a.XXX equals b.YYY into tmpe
+             *      // a.XXX와 b.YYY가 일치하는 a, b 데이터 추출하여 temp에 저장
+             *      // a 데이터는 하나도 누락되지 않는다
+             *      from b in temp.DefaultEmpty(new a() {empty="공백"})
+             *      // temp에서 비어있는 데이터를 채운 후, 다시 b 데이터로 가져온다.
+             */
+
+            var Students2 = from profile in profileList
+                            join score in scoreList on
+                                profile.name equals score.name into temp
+                            from score in temp.DefaultIfEmpty(
+                                new Score() { math = 100, english = 100 })
+                            select new
+                            {
+                                Name = profile.name,
+                                Age = profile.age,
+                                Math = score.math,
+                                English = score.english
+                            };
+
+            foreach (var student in Students2)
+                Console.WriteLine(student);
+        }
+    }
 
     class Program
     {
@@ -389,11 +1038,15 @@ namespace C____Study
             //study.StringBuilder(); // StringBuliider 예제
             //study.Enum(); // enum 예제
 
-            YieldPractice yPractice = new YieldPractice();
-            yPractice.Print();
-
-            //DelegatePractice dPractice = new DelegatePractice();
-            //dPractice.Perform();
+            Practice practice;
+            practice = new Yield();
+            practice = new Collection();
+            practice = new Delegate();
+            practice = new Anonymous();
+            practice = new LamdaExpression();
+            practice = new FuncAction();
+            practice = new Linq();
+            practice.Example();
         }
     }
 }
