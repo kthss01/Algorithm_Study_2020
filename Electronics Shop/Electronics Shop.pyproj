@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>c8032cb2-0e1d-4eaf-9896-450f1a4d3a55</ProjectGuid>
+    <ProjectGuid>8a0a987a-6f7a-41dd-8118-20d51ab0609b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>입력받기.py</StartupFile>
+    <StartupFile>Electronics_Shop.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PythonStudy</Name>
-    <RootNamespace>PythonStudy</RootNamespace>
+    <Name>Electronics Shop</Name>
+    <RootNamespace>Electronics Shop</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,16 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="기초.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="자료형.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="문자열.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="입력받기.py" />
+    <Compile Include="Electronics_Shop.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

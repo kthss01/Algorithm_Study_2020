@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>c8032cb2-0e1d-4eaf-9896-450f1a4d3a55</ProjectGuid>
+    <ProjectGuid>0d21d274-6b31-431d-bf2e-1757223bcfc9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>입력받기.py</StartupFile>
+    <StartupFile>Counting_Valleys.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PythonStudy</Name>
-    <RootNamespace>PythonStudy</RootNamespace>
+    <Name>Counting Valleys</Name>
+    <RootNamespace>Counting Valleys</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,16 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="기초.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="자료형.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="문자열.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="입력받기.py" />
+    <Compile Include="Counting_Valleys.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

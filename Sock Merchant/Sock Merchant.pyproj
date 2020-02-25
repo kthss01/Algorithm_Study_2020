@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>c8032cb2-0e1d-4eaf-9896-450f1a4d3a55</ProjectGuid>
+    <ProjectGuid>36c20b8d-3567-4ac3-9e89-585318196e4e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>입력받기.py</StartupFile>
+    <StartupFile>Sock_Merchant.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PythonStudy</Name>
-    <RootNamespace>PythonStudy</RootNamespace>
+    <Name>Sock Merchant</Name>
+    <RootNamespace>Sock Merchant</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,16 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="기초.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="자료형.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="문자열.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="입력받기.py" />
+    <Compile Include="Sock_Merchant.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
