@@ -103,11 +103,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Find Digits", "Find Digits\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Extra Long Factorials", "Extra Long Factorials\Extra Long Factorials.vcxproj", "{9C9FD5F0-1648-4263-8C57-350FDBEC1E31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Append and Delete", "Append and Delete\Append and Delete.csproj", "{AC190ECE-55BE-42F3-9DB7-C1B676871461}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Append and Delete", "Append and Delete\Append and Delete.csproj", "{AC190ECE-55BE-42F3-9DB7-C1B676871461}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sherlock and Squares", "Sherlock and Squares\Sherlock and Squares.csproj", "{926E481F-4CB4-4CAD-964A-939D836C2B97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sherlock and Squares", "Sherlock and Squares\Sherlock and Squares.csproj", "{926E481F-4CB4-4CAD-964A-939D836C2B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library Fine", "Library Fine\Library Fine.csproj", "{73F23333-3A12-4D06-ACDB-8AF3B43BA683}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library Fine", "Library Fine\Library Fine.csproj", "{73F23333-3A12-4D06-ACDB-8AF3B43BA683}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cut the sticks", "Cut the sticks\Cut the sticks.vcxproj", "{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -577,6 +579,16 @@ Global
 		{73F23333-3A12-4D06-ACDB-8AF3B43BA683}.Release|x64.Build.0 = Release|Any CPU
 		{73F23333-3A12-4D06-ACDB-8AF3B43BA683}.Release|x86.ActiveCfg = Release|Any CPU
 		{73F23333-3A12-4D06-ACDB-8AF3B43BA683}.Release|x86.Build.0 = Release|Any CPU
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Debug|x64.ActiveCfg = Debug|x64
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Debug|x64.Build.0 = Debug|x64
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Debug|x86.Build.0 = Debug|Win32
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Release|x64.ActiveCfg = Release|x64
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Release|x64.Build.0 = Release|x64
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Release|x86.ActiveCfg = Release|Win32
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -631,6 +643,7 @@ Global
 		{AC190ECE-55BE-42F3-9DB7-C1B676871461} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
 		{926E481F-4CB4-4CAD-964A-939D836C2B97} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
 		{73F23333-3A12-4D06-ACDB-8AF3B43BA683} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
+		{5AB3A71B-9FF2-4B02-8B89-25E41CA3CC8E} = {B870B55B-A490-421E-9E01-10F0103E347E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50855108-F57E-4F5B-8306-2B3CCAF6E097}
