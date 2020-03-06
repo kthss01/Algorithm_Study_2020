@@ -319,6 +319,106 @@ public:
 			cout << i;
 		cout << endl;
 	}
+
+	// Union Find 알고리즘 (Disjoint-Set(서로소 집합) 알고리즘)
+	struct NaiveDisjointSet {
+		/* 
+			최악의 경우 완전히 비대칭적인 트리, 즉 연결리스트 형태가 되어버릴 수 있음
+			이렇게 되면 Union, Find 연산 수행시간이 O(N)이 되어버려 효율이 나빠짐
+		*/
+		vector<int> parent;
+		NaiveDisjointSet(int n) : parent(n) {
+			// 초기화
+			for (int i = 0; i < n; i++)
+				parent[i] = i;
+		}
+
+		// Find (찾기) 연산
+		// u가 속한 트리의 루트 노드 번호를 반환한다.
+		int find(int u) const {
+			// 루트 노드는 부모 노드 번호로 자기 자신을 가진다.
+			if (u == parent[u]) return u;
+			
+			// 각 노드의 부모 노드를 찾아 올라간다.
+			return find(parent[u]);
+		}
+
+		// Union(합치기) 연산
+		// u가 속한 트리와 v가 속한 트리를 합친다
+		void merge(int u, int v) {
+			// 각 원소가 속한 트리의 루트 노드를 찾는다.
+			u = find(u); v = find(v);
+
+			// u와 v가 이미 같은 트리에 속하는 경우에는 합치지 않는다.
+			if (u == v) return;
+			parent[u] = v;
+		}
+
+	};
+
+	// disjoint set 최적화 (union-by-rank)
+	struct OptimizedDisjointSet {
+		/*
+			두 트리를 합병할 때, 항상 높이가 더 낮은 트리를 더 높은 트리 밑에 집어넣는다.
+			rank에 트리의 높이를 저장
+			두 트리의 rank가 동일하여 높이가 높아져얌나 하는 경우에는
+			합형 후 결과 트리의 rank를 1 증가 시켜 준다.
+
+			최적화를 통해 Union과 Find 연산의 시간복잡도가 O(lgN)이 된다.
+		*/
+
+		vector<int> parent, rank;
+		OptimizedDisjointSet(int n) : parent(n), rank(n, 1) {
+			for (int i = 0; i < n; i++)
+				parent[i] = i;
+		}
+
+		int find(int u) {
+			if (u == parent[u]) return u;
+
+			// 경로 압축 (path compression)
+			/*
+				parent를 찾아낸 루트로 아예 바꿔 버리면 
+				find 연산 수행시 중복되는 연산을 줄여준다.
+			*/
+			return parent[u] = find(parent[u]);
+		}
+
+		void merge(int u, int v) {
+			u = find(u); v = find(v);
+
+			if (u == v) return;
+
+			if (rank[u] > rank[v]) swap(u, v);
+			parent[u] = v;
+			// 두 트리의 높이가 같은 경우에는 결과 트리의 rank를 1 높여준다.
+			if (rank[u] == rank[v]) rank[v]++;
+		}
+	};
+
+	void UnionFind() {
+		//NaiveDisjointSet set(11);
+		OptimizedDisjointSet set(11);
+
+		/*
+			ex)
+			0 1234 5678 910 표현
+		*/
+		set.merge(1, 2);
+		set.merge(2, 3);
+		set.merge(3, 4);
+		set.merge(5, 6);
+		set.merge(6, 7);
+		set.merge(7, 8);
+		set.merge(9, 10);
+		
+		if (set.find(1) == set.find(5)) cout << "1과 5는 연결되어있음" << endl;
+		else cout << "1과 5는 연결되어 있지 않음" << endl;
+		if (set.find(1) == set.find(3)) cout << "1과 3은 연결되어있음" << endl;
+		else cout << "1과 3은 연결되어 있지 않음" << endl;
+		if (set.find(5) == set.find(10)) cout << "1과 5는 연결되어있음" << endl;
+		else cout << "5와 10은 연결되어 있지 않음" << endl;
+	}
 };
 
 int main() {
@@ -339,7 +439,10 @@ int main() {
 
 	// 곱셈 예제
 	//algorithm.Multiply(1234, 5678);
-	algorithm.Multiply();
+	//algorithm.Multiply();
+
+	// Union-Find 알고리즘 예제
+	algorithm.UnionFind();
 
 	return 0;
 }
