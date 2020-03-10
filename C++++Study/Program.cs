@@ -1026,6 +1026,275 @@ namespace C____Study
         }
     }
 
+    // Algorithm
+    class Algorithm :  Practice
+    {
+        public override void Example()
+        {
+            Combination c = new Combination(5, 3);
+
+            while(c != null)
+            {
+                Console.WriteLine(c.ToString());
+                c = c.Successor();
+            }
+
+            Console.WriteLine();
+
+            string[] items = new string[] { "ant", "bug", "cat", "dog", "elk" };
+            c = new Combination(items.Length, 3); // 5개중 3개 조합
+
+            string[] snapshot = null;
+
+            while(c != null)
+            {
+                snapshot = c.ApplyTo(items);
+                Console.Write("{ ");
+                foreach (string s in snapshot)
+                {
+                    Console.Write(s + " ");
+                }
+                Console.WriteLine("}");
+
+                c = c.Successor();
+            }
+
+            Console.WriteLine();
+            
+            string[] items2 = new string[] { "apple", "banana", "cherry" };
+            Permutation p = new Permutation(items2.Length);
+            
+            while(p != null)
+            {
+                snapshot = p.ApplyTo(items2);
+                Console.Write("{ ");
+                foreach (string s in snapshot)
+                {
+                    Console.Write(s + " ");
+                }
+                Console.WriteLine("}");
+
+                p = p.Successor();
+            }
+        }
+
+        // Combiantaion
+        class Combination
+        {
+            private long n = 0;
+            private long k = 0;
+            private long[] data = null;
+
+            public Combination(long n, long k)
+            {
+                if(n < 0 || k < 0)
+                {
+                    throw new Exception("Negative parameter in constructor");
+                }
+
+                this.n = n;
+                this.k = k;
+                this.data = new long[k];
+
+                for(long i =0; i <k; i++)
+                {
+                    this.data[i] = i;
+                }
+            }
+
+            public Combination Successor()
+            {
+                if (this.data.Length == 0 || this.data[0] == this.n - this.k)
+                {
+                    return null;
+                }
+
+                Combination answer = new Combination(this.n, this.k);
+
+                long i;
+                for(i = 0; i < this.k; i++)
+                {
+                    answer.data[i] = this.data[i];
+                }
+
+                for (i = this.k - 1; i > 0 && answer.data[i] == this.n - this.k + i; i--) ;
+
+                answer.data[i]++;
+
+                for(long j = i; j < this.k-1; j++)
+                {
+                    answer.data[j + 1] = answer.data[j] + 1;
+                }
+
+                return answer;
+            }
+
+            public string[] ApplyTo(string[] strarr)
+            {
+                if(strarr.Length != this.n)
+                {
+                    throw new Exception("Bad array size");
+                }
+
+                string[] result = new string[this.k];
+
+                for(long i=0; i<result.Length; i++)
+                {
+                    result[i] = strarr[this.data[i]];
+                }
+
+                return result;
+            }
+
+            public static long Choose(long n, long k)
+            {
+                if(n < 0 || k < 0)
+                {
+                    throw new Exception("Invalid negative parameter in Choose()");
+                }
+
+                if (n < k)
+                    return 0;
+
+                if (n == k)
+                    return 1;
+
+                long delta, iMax;
+
+                if (k < n - k)
+                {
+                    delta = n - k;
+                    iMax = k;
+                }
+                else
+                {
+                    delta = k;
+                    iMax = n - k;
+                }
+
+                long answer = delta + 1;
+
+                for (long i = 2; i <= iMax; i++)
+                {
+                    checked { answer = (answer * (delta + i)) / i; }
+                }
+
+                return answer;
+            }
+
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.Append("{ ");
+
+                for(long i = 0; i < this.k; i++)
+                {
+                    sb.AppendFormat("{0} ", this.data[i]);
+                }
+
+                sb.Append("}");
+
+                return sb.ToString();
+            }
+        }
+
+        // Permutation
+        class Permutation
+        {
+            private int[] data = null;
+            private int order = 0;
+
+            public Permutation(int n)
+            {
+                this.data = new int[n];
+                for (int i = 0; i < n; i++)
+                    this.data[i] = i;
+                this.order = n;
+            }
+
+            public Permutation Successor()
+            {
+                Permutation result = new Permutation(this.order);
+
+                int left, right;
+                for(int k=0; k<result.order; k++)
+                {
+                    result.data[k] = this.data[k];
+                }
+
+                left = result.order - 2; 
+                while((result.data[left] > result.data[left+1]) && (left >= 1))
+                {
+                    --left;
+                }
+
+                if((left == 0) && (this.data[left] > this.data[left+1]))
+                {
+                    return null;
+                }
+
+                right = result.order - 1;
+                while(result.data[left] > result.data[right])
+                {
+                    --right;
+                }
+
+                int temp = result.data[left];
+                result.data[left] = result.data[right];
+                result.data[right] = temp;
+
+                int i = left + 1;
+                int j = result.order - 1;
+
+                while(i < j)
+                {
+                    temp = result.data[i];
+                    result.data[i++] = result.data[j];
+                    result.data[j--] = temp;
+                }
+
+                return result;
+            }
+
+            internal static long Choose(int length)
+            {
+                long answer = 1;
+
+                for(int i=1; i<=length; i++)
+                {
+                    checked { answer = answer * i; }
+                }
+
+                return answer;
+            }
+
+            public string[] ApplyTo(string[] arr)
+            {
+                if (arr.Length != this.order)
+                    return null;
+
+                string[] result = new string[arr.Length];
+                for (int i = 0; i < result.Length; i++)
+                    result[i] = arr[this.data[i]];
+
+                return result;
+            }
+
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.Append("( ");
+                for (int i = 0; i < this.order; i++)
+                    sb.Append(this.data[i].ToString() + " ");
+                sb.Append(")");
+
+                return sb.ToString();
+            }
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -1046,6 +1315,7 @@ namespace C____Study
             practice = new LamdaExpression();
             practice = new FuncAction();
             practice = new Linq();
+            practice = new Algorithm();
             practice.Example();
         }
     }

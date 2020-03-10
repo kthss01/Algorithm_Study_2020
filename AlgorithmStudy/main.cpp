@@ -75,6 +75,61 @@ public:
 				cout << ele << ' ';
 			cout << '\n';
 		} while (next_permutation(v.begin(), v.end()));
+
+		cout << endl;
+		
+		// 직접 구현
+		vector<int> arr = { 1, 2, 3 };
+		//PermutationSelf(arr, 0, arr.size()-1);
+		HeapPermutation(arr, arr.size());
+	}
+
+	// 순열 구현
+	void PermutationSelf(vector<int>& arr, int start, int end)
+	{
+		if (start == end) {
+			for (auto it : arr)
+				cout << it << " ";
+			cout << endl;
+		}
+		else {
+			for (int i = start; i <= end; i++) {
+				swap(arr[start], arr[i]);
+				PermutationSelf(arr, start + 1, end);
+				swap(arr[start], arr[i]);
+			}
+		}
+	}
+
+	// 힙 알고리즘
+	void HeapPermutation(vector<int>& arr, int size)
+	{
+		//  사이즈가 1이면 arr 출력
+		if (size == 1)
+		{
+			for (const auto it : arr)
+			{
+				cout << it << " ";
+			}
+			cout << endl;
+			return;
+		}
+
+		for (int i = 0; i < size; i++)
+		{
+			// 재귀 함수 호출
+			HeapPermutation(arr, size - 1);
+
+			if (i < size - 1)
+			{
+				// 사이즈 홀수면 첫번째 마지막 스왑
+				if (size % 2 == 1)
+					swap(arr[0], arr[size - 1]);
+				// 사이즈 짝수면 i번째와 마지막 스왑
+				else
+					swap(arr[i], arr[size - 1]);
+			}
+		}
 	}
 
 	// 조합 (next_permutation 함수 이용)
@@ -432,8 +487,8 @@ int main() {
 	//cout << "GCD " << gcd << '\n';
 
 	// 순열 예제
-	//algorithm.Permutation();
-	
+	algorithm.Permutation();
+
 	// 조합 예제
 	//algorithm.Combination();
 
@@ -442,7 +497,7 @@ int main() {
 	//algorithm.Multiply();
 
 	// Union-Find 알고리즘 예제
-	algorithm.UnionFind();
+	//algorithm.UnionFind();
 
 	return 0;
 }
