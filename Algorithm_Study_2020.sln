@@ -127,6 +127,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taum and B'day", "Taum and 
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Organizing Containers of Balls", "Organizing Containers of Balls\Organizing Containers of Balls.pyproj", "{B377DC72-7997-4680-9650-7B4767810CB8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Encryption", "Encryption\Encryption.vcxproj", "{08844156-8255-4385-9848-E6EDB34DAACD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -673,6 +675,16 @@ Global
 		{B377DC72-7997-4680-9650-7B4767810CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B377DC72-7997-4680-9650-7B4767810CB8}.Release|x64.ActiveCfg = Release|Any CPU
 		{B377DC72-7997-4680-9650-7B4767810CB8}.Release|x86.ActiveCfg = Release|Any CPU
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Debug|x64.ActiveCfg = Debug|x64
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Debug|x64.Build.0 = Debug|x64
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Debug|x86.ActiveCfg = Debug|Win32
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Debug|x86.Build.0 = Debug|Win32
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Release|Any CPU.ActiveCfg = Release|Win32
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Release|x64.ActiveCfg = Release|x64
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Release|x64.Build.0 = Release|x64
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Release|x86.ActiveCfg = Release|Win32
+		{08844156-8255-4385-9848-E6EDB34DAACD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -736,6 +748,7 @@ Global
 		{2D7C83F5-9B49-4AEB-9EE4-9331B2530F73} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
 		{4BD82707-F50B-46A8-9087-04D8263D8764} = {852E042D-B393-4889-BB77-6D3738E5BD6F}
 		{B377DC72-7997-4680-9650-7B4767810CB8} = {025568C8-703C-4402-B5CC-3998B3D236D6}
+		{08844156-8255-4385-9848-E6EDB34DAACD} = {B870B55B-A490-421E-9E01-10F0103E347E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50855108-F57E-4F5B-8306-2B3CCAF6E097}
