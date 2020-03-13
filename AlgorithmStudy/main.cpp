@@ -54,34 +54,44 @@ public:
 
 	// 순열 (next_permutation 함수 이용)
 	void Permutation() {
-		/*
-			중복이 있는 원소들의 경우
-			중복인 경우를 제외하고 순열을 만들어줌
-		*/
-		vector<int> v;
-		//for (int i = 0; i < 4; i++)
-		//	v.push_back(i + 1);
+		///*
+		//	중복이 있는 원소들의 경우
+		//	중복인 경우를 제외하고 순열을 만들어줌
+		//*/
+		//vector<int> v;
+		////for (int i = 0; i < 4; i++)
+		////	v.push_back(i + 1);
 
-		v.push_back(0);
-		v.push_back(1);
-		v.push_back(1);
+		//v.push_back(0);
+		//v.push_back(1);
+		//v.push_back(1);
 
-		sort(v.begin(), v.end());
+		//sort(v.begin(), v.end());
 
-		// 순열
-		do {
-			// 출력
-			for (int ele : v)
+		//// 순열
+		//do {
+		//	// 출력
+		//	for (int ele : v)
+		//		cout << ele << ' ';
+		//	cout << '\n';
+		//} while (next_permutation(v.begin(), v.end()));
+
+		//cout << endl;
+		//
+		//// 직접 구현
+		//vector<int> arr = { 1, 2, 3 };
+		////PermutationSelf(arr, 0, arr.size()-1);
+		//HeapPermutation(arr, arr.size());
+
+		// 사전식 순열 생성 구현
+		vector<int> arr = { 1,2,3,4 };
+		do 
+		{
+			for (int ele : arr)
 				cout << ele << ' ';
-			cout << '\n';
-		} while (next_permutation(v.begin(), v.end()));
+			cout << endl;
+		} while (NextPermutation(arr));
 
-		cout << endl;
-		
-		// 직접 구현
-		vector<int> arr = { 1, 2, 3 };
-		//PermutationSelf(arr, 0, arr.size()-1);
-		HeapPermutation(arr, arr.size());
 	}
 
 	// 순열 구현
@@ -130,6 +140,59 @@ public:
 					swap(arr[i], arr[size - 1]);
 			}
 		}
+	}
+
+	// 사전식 순열 생성 구현
+	bool NextPermutation(vector<int>& arr) {
+		/*
+			c++ next_permutation 쓰면 그냥 되지만 이왕 공부하는거 구현해보기로함
+			14세기 인도의 수학자 나라야나 판디타가 고안했다고 함
+
+			1. a[k] < a[k+1]인 가장 큰 인덱스 k 찾기
+			만약 이를 찾을 수 없다면, 수열이 역순으로 정렬된 것으로 
+			사전식 순열의 맨 마지막 항이 됨
+			2. k를 찾았다면 k 이후의 인덱스에서 a[k]보다 큰 값을 가진
+			가장 먼 인덱스 l를 찾기
+			3. k l 위치의 값 교환
+			4. 그런 다음 k보다 다음 위치의 값들만 역순으로 재배치
+
+			ex) 4,1,5,3,2
+			1. 증가하는 마지막 인덱스 1 (a[1] => 1)
+			2. 1보다 큰 값을 가지는 가장 먼 인덱스는 4 (a[4] >= 2)
+			3. 1과 4 자리의 값 교환 ([4,2,5,3,1])
+			4. 1 다음의 3개 숫자 역순으로 뒤집는다 ([4,2,1,3,5])
+		*/
+
+		// Find logest non-increasing suffix
+		int i = arr.size() - 1;
+		while (i > 0 && arr[i - 1] >= arr[i]) i--;
+		// Now i is the head index of the suffix
+
+		if (i <= 0) return false;
+
+		// arr[i-1] be the pivot
+		// Find rightmost element that exceeds the pivot
+		int j = arr.size() - 1;
+		while (arr[j] <= arr[i - 1]) j--;
+		// arr[j] new pivto
+		// Assertion: j >= i
+
+		// swap pivot j
+		int temp = arr[i - 1];
+		arr[i - 1] = arr[j];
+		arr[j] = temp;
+
+		// reverse the suffix
+		j = arr.size() - 1;
+		while (i < j) {
+			temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+			i++;
+			j--;
+		}
+
+		return true;
 	}
 
 	// 조합 (next_permutation 함수 이용)
