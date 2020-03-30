@@ -1,3 +1,6 @@
+// 전체 숨기기/보이기: Ctrl+MO, Ctrl+ML
+// 선택한 부분을 숨기기: Ctrl+MH
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -536,6 +539,43 @@ public:
 		else cout << "1과 3은 연결되어 있지 않음" << endl;
 		if (set.find(5) == set.find(10)) cout << "1과 5는 연결되어있음" << endl;
 		else cout << "5와 10은 연결되어 있지 않음" << endl;
+	}
+
+	// CCW를 이용한 선분 교차 판별
+	/*
+		참고 ccw 함수에 반환하는 값에 절댓값을 씌우고, 2로 나눠준다면 세 점이 이루는
+		삼각형의 넓이를 구할 수 있음
+		ccw 구하는게 외적과 삼각형의 넓이 구하는데 쓰이는 사선 공식을 이용하게 되기 때문
+	*/
+	int ccw(pair<int, int> a, pair<int, int> b, pair<int, int> c) {
+		/*
+			0보다 크면 반시계 방향
+			0보다 작으면 시계 방향
+			0이면 세점 평행
+		*/
+		int op = a.first * b.second + b.first * c.second + c.first * a.second;
+		op -= (a.second * b.first + b.second * c.first + c.second * a.first);
+		
+		if (op > 0) return 1;
+		else if (op == 0) return 0;
+		else return -1;
+	}
+
+	int IsIntersect(pair<pair<int, int>, pair<int, int>> x, pair<pair<int, int>, pair<int, int>> y) {
+		pair<int, int> a = x.first;
+		pair<int, int> b = x.second;
+		pair<int, int> c = y.first;
+		pair<int, int> d = y.second;
+		int ab = ccw(a, b, c) * ccw(a, b, d);
+		int cd = ccw(c, d, a) * ccw(c, d, b);
+
+		// 일직선상에 놓인 경우
+		if (ab == 0 && cd == 0) {
+			if (a > b) swap(a, b);
+			if (c > d) swap(c, d);
+			return c <= b && a <= d;
+		}
+		return ab <= 0 && cd <= 0;
 	}
 };
 

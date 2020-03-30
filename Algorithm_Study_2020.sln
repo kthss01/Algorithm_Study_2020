@@ -167,6 +167,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Absolute Permutation", "Abs
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "The Bomberman Game", "The Bomberman Game\The Bomberman Game.vcxproj", "{212A3F05-2DDD-4BA3-B521-69AA203C58CD}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Ema's Supercomputer", "Ema's Supercomputer\Ema's Supercomputer.pyproj", "{35E25551-79A4-4BB0-BFD9-2258E2C1D88E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -903,6 +905,12 @@ Global
 		{212A3F05-2DDD-4BA3-B521-69AA203C58CD}.Release|x64.Build.0 = Release|x64
 		{212A3F05-2DDD-4BA3-B521-69AA203C58CD}.Release|x86.ActiveCfg = Release|Win32
 		{212A3F05-2DDD-4BA3-B521-69AA203C58CD}.Release|x86.Build.0 = Release|Win32
+		{35E25551-79A4-4BB0-BFD9-2258E2C1D88E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E25551-79A4-4BB0-BFD9-2258E2C1D88E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35E25551-79A4-4BB0-BFD9-2258E2C1D88E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35E25551-79A4-4BB0-BFD9-2258E2C1D88E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E25551-79A4-4BB0-BFD9-2258E2C1D88E}.Release|x64.ActiveCfg = Release|Any CPU
+		{35E25551-79A4-4BB0-BFD9-2258E2C1D88E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -986,6 +994,7 @@ Global
 		{6148B17A-C4A9-4B4C-9556-8CF9858FF554} = {B870B55B-A490-421E-9E01-10F0103E347E}
 		{E68E8CDF-58DE-43AB-B0BF-91767EC0C718} = {B870B55B-A490-421E-9E01-10F0103E347E}
 		{212A3F05-2DDD-4BA3-B521-69AA203C58CD} = {B870B55B-A490-421E-9E01-10F0103E347E}
+		{35E25551-79A4-4BB0-BFD9-2258E2C1D88E} = {025568C8-703C-4402-B5CC-3998B3D236D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50855108-F57E-4F5B-8306-2B3CCAF6E097}

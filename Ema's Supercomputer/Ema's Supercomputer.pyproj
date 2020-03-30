@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>c8032cb2-0e1d-4eaf-9896-450f1a4d3a55</ProjectGuid>
+    <ProjectGuid>35e25551-79a4-4bb0-bfd9-2258e2c1d88e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>입력받기.py</StartupFile>
+    <StartupFile>Ema_s_Supercomputer.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PythonStudy</Name>
-    <RootNamespace>PythonStudy</RootNamespace>
+    <Name>Ema's Supercomputer</Name>
+    <RootNamespace>Ema's Supercomputer</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,19 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="기초.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="자료형.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="문자열.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="입력받기.py" />
-    <Compile Include="클래스.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Ema_s_Supercomputer.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
